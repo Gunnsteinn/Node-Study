@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const { loggerMidlleware } = require("../middlewares/logger");
 
 const { dbConnection } = require("../database/config");
 
@@ -28,6 +29,7 @@ class Server {
   midlewares() {
     this.app.use(cors());
     this.app.use(express.json());
+    this.app.use(loggerMidlleware);
   }
 
   routes() {

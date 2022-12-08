@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
+const logger = require("../services/loggerService");
 
 // const { validator } = require("../middlewares/validator");
 // const { jwtValidator } = require("../middlewares/jwt-validator");
@@ -8,12 +9,7 @@ const { check } = require("express-validator");
 //   rolesValidator,
 // } = require("../middlewares/role-validator");
 
-const {
-  validator,
-  jwtValidator,
-  roleValidator,
-  rolesValidator,
-} = require("../middlewares");
+const { validator, jwtValidator, rolesValidator } = require("../middlewares");
 
 const {
   isValidRole,
@@ -26,12 +22,18 @@ const {
   saveUser,
   updateUser,
   deleteUser,
-  patchUser,
 } = require("../controllers/users");
 
 const router = Router();
 
-router.get("/", getUser);
+router.get(
+  "/",
+  (req, res, next) => {
+    logger.info("GET route is accessed");
+    next();
+  },
+  getUser
+);
 router.post(
   "/",
   [

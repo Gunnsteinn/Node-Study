@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
-const logger = require("pino")();
+const logger = require("../services/loggerService");
 
 const dbConnection = async () => {
   try {
-    logger.info("ACAAAAAAA" + process.env.MONGO_CNN);
     await mongoose.connect(process.env.MONGO_CNN, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
