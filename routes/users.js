@@ -26,17 +26,20 @@ const {
 
 const router = Router();
 
-router.get(
-  "/",
-  (req, res, next) => {
-    logger.info("GET route is accessed");
-    next();
-  },
-  getUser
-);
+const logRequest = (req, res, next) => {
+  const { protocol, hostname, originalUrl } = req;
+  const port = process.env.PORT || "8080";
+  const fullUrl = ``;
+  logger.info(
+    `${req.method} to ${protocol}://${hostname}:${port}${originalUrl} route is accessed`
+  );
+  next();
+};
+router.get("/", logRequest, getUser);
 router.post(
   "/",
   [
+    logRequest,
     check("name", "Wrong or empty name.").not().isEmpty(),
     check("password", "Wrong password.").isLength({ min: 6 }),
     check("email", "Wrong email.").isEmail().custom(isEmailExist),
@@ -48,6 +51,7 @@ router.post(
 router.put(
   "/:id",
   [
+    logRequest,
     check("id", "Wrong id.").isMongoId(),
     check("id").custom(isIdUserExist),
     check("role").custom(isValidRole),
@@ -58,6 +62,7 @@ router.put(
 router.delete(
   "/:id",
   [
+    logRequest,
     jwtValidator,
     // roleValidator,
     rolesValidator("ADMIN_ROLE", "SELLER_ROLE"),

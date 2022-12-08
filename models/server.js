@@ -9,8 +9,8 @@ class Server {
     this.app = express();
     this.port = process.env.PORT;
 
-    this.authPath = "/api/auth";
-    this.userPath = "/api/users";
+    this.authPath = "/api/v1/auth";
+    this.userPath = "/api/v1/users";
 
     // Database
     this.dbConnect();
