@@ -3,6 +3,7 @@ const logger = require("pino")();
 
 const dbConnection = async () => {
   try {
+    logger.info("ACAAAAAAA" + process.env.MONGO_CNN);
     await mongoose.connect(process.env.MONGO_CNN, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
