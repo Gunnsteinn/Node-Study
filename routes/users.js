@@ -9,7 +9,12 @@ const logger = require("../services/loggerService");
 //   rolesValidator,
 // } = require("../middlewares/role-validator");
 
-const { validator, jwtValidator, rolesValidator } = require("../middlewares");
+const {
+  validator,
+  jwtValidator,
+  rolesValidator,
+  logRequest,
+} = require("../middlewares");
 
 const {
   isValidRole,
@@ -26,15 +31,6 @@ const {
 
 const router = Router();
 
-const logRequest = (req, res, next) => {
-  const { protocol, hostname, originalUrl } = req;
-  const port = process.env.PORT || "8080";
-  const fullUrl = ``;
-  logger.info(
-    `${req.method} to ${protocol}://${hostname}:${port}${originalUrl} route is accessed`
-  );
-  next();
-};
 router.get("/", logRequest, getUser);
 router.post(
   "/",
