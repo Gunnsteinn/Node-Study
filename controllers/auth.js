@@ -43,7 +43,7 @@ const login = async (req, res = response) => {
 
 const googleSignIn = async (req, res = response) => {
   const { id_token } = req.body;
-
+  console.log("ENTRA ENNNN googleSignIn");
   try {
     const { name, picture, email } = await googleVerify(id_token);
 
