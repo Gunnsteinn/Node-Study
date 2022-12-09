@@ -48,7 +48,7 @@ const googleSignIn = async (req, res = response) => {
     const { name, picture, email } = await googleVerify(id_token);
 
     let user = await User.findOne({ email });
-
+    console.log(user);
     if (!user) {
       const data = {
         name,
@@ -69,9 +69,10 @@ const googleSignIn = async (req, res = response) => {
         msg: "Contact administration, user blocked.",
       });
     }
-
+    console.log(user.id);
     // Generate JWT
     const token = await jwtGenerator(user.id);
+    console.log(token);
     res.json({ user, token });
   } catch (error) {
     console.log(error);
