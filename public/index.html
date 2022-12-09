@@ -36,6 +36,8 @@
         const body = { id_token: response.credential };
         fetch("http://localhost:8080/api/auth/google", {
           method: "POST",
+          credentials: "include",
+          mode: "cors",
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
